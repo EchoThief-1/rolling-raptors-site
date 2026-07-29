@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utah Rolling Raptors — Wheelchair Lacrosse</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  :root{
+    --ink:#0c0d0f;
+    --charcoal:#1b1d20;
+    --charcoal-light:#26292d;
+    --ice:#83caf0;
+    --ice-deep:#4fa3d1;
+    --gray:#8a8d90;
+    --bone:#f3f5f6;
+    --bone-dim:#c7cbce;
+    --line: rgba(243,245,246,0.12);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Work Sans', sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    line-height:0.95;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.04em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- Track pattern (signature element) ---------- */
+  .tracks{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:0.5;
+  }
+  .tracks svg{width:100%;height:100%;}
+
+  .hero-logo{
+    position:absolute;
+    right:24px;
+    top:36px;
+    width:360px;
+    max-width:38vw;
+    opacity:0.92;
+    z-index:1;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  }
+  @media (max-width:760px){
+    .hero-logo{display:none;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(12,13,15,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .brand-mark img{width:100%;height:100%;object-fit:contain;}
+  .brand-name{
+    font-family:'Anton',sans-serif;
+    font-size:16px;
+    letter-spacing:0.03em;
+  }
+  .brand-name span{
+    font-family:'Permanent Marker', cursive;
+    font-size:19px;
+    color:var(--ice);
+    text-transform:none;
+    letter-spacing:0.01em;
+  }
+
+  .navlinks{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .navlinks a{
+    opacity:0.8;
+    transition:opacity .15s;
+    padding:6px 0;
+    border-bottom:2px solid transparent;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{
+    opacity:1;
+    border-color:var(--ice);
+    outline:none;
+  }
+
+  .nav-right{display:flex;align-items:center;gap:18px;}
+
+  .menu-btn{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    width:32px;height:32px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .menu-btn span{
+    display:block;
+    width:100%;
+    height:2px;
+    background:var(--bone);
+    transition:transform .2s, opacity .2s;
+  }
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-btn.open span:nth-child(2){opacity:0;}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (max-width:760px){
+    .navlinks{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;right:0;
+      background:var(--ink);
+      flex-direction:column;
+      gap:0;
+      padding:8px 24px 20px;
+      border-bottom:1px solid var(--line);
+    }
+    .navlinks.open{display:flex;}
+    .navlinks a{padding:14px 0;border-bottom:1px solid var(--line);}
+    .nav-right .cta-btn{display:none;}
+    .menu-btn{display:flex;}
+    section{padding:64px 20px;}
+    .hero{padding-top:70px;padding-bottom:60px;}
+  }
+
+  .cta-btn{
+    display:inline-block;
+    background:var(--ice);
+    color:var(--ink);
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:12px 22px;
+    border-radius:3px;
+    transition:transform .15s, background .15s;
+  }
+  .cta-btn:hover, .cta-btn:focus-visible{
+    background:#4fa3d1;
+    transform:translateY(-1px);
+    outline:none;
+  }
+  .cta-ghost{
+    border:1.5px solid var(--bone-dim);
+    background:transparent;
+    color:var(--bone);
+  }
+  .cta-ghost:hover{
+    background:var(--bone);
+    color:var(--ink);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:90px 24px 100px;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(209,161,58,0.14), transparent 45%),
+      linear-gradient(180deg, var(--ink), #0c1712);
+    overflow:hidden;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    font-size:13px;
+    color:var(--ice);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:26px;height:2px;
+    background:var(--ice);
+    display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(48px, 10vw, 104px);
+    color:var(--bone);
+  }
+  .hero h1 .accent{color:var(--ice);}
+  .hero-sub{
+    max-width:520px;
+    margin-top:22px;
+    font-size:18px;
+    line-height:1.55;
+    color:var(--bone-dim);
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    margin-top:36px;
+    flex-wrap:wrap;
+  }
+  .hero-facts{
+    display:flex;
+    gap:36px;
+    margin-top:64px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+  }
+  .fact-num{
+    font-family:'Anton',sans-serif;
+    font-size:34px;
+    color:var(--ice);
+  }
+  .fact-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--bone-dim);
+    margin-top:2px;
+  }
+
+  /* ---------- SECTION shared ---------- */
+  section{
+    padding:88px 24px;
+    position:relative;
+  }
+  .section-tag{
+    font-size:13px;
+    color:var(--ice);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(32px,5vw,52px);
+    margin-bottom:20px;
+    color:var(--bone);
+  }
+
+  /* ---------- WHAT/HOW ---------- */
+  .how{background:var(--bone);color:var(--ink);}
+  .how .section-title{color:var(--ink);}
+  .how .section-tag{color:var(--ice-deep);}
+  .how-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    background:var(--ink);
+    margin-top:40px;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .how-card{
+    background:var(--bone);
+    padding:34px 28px;
+  }
+  .how-card .mono{
+    font-size:13px;
+    color:var(--ice-deep);
+    display:block;
+    margin-bottom:14px;
+  }
+  .how-card h3{
+    font-size:22px;
+    margin-bottom:10px;
+    letter-spacing:0;
+  }
+  .how-card p{
+    font-size:15px;
+    line-height:1.55;
+    color:#3a4640;
+  }
+
+  /* ---------- GALLERY / CAROUSEL ---------- */
+  .gallery{background:var(--ink);}
+  .carousel{
+    position:relative;
+    margin-top:40px;
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--charcoal);
+  }
+  .carousel-track{
+    display:flex;
+    transition:transform .45s ease;
+  }
+  .carousel-slide{
+    flex:0 0 100%;
+    position:relative;
+    aspect-ratio:16/9;
+    background:var(--charcoal);
+  }
+  .carousel-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .carousel-slide figcaption{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    padding:14px 18px;
+    font-size:13px;
+    color:var(--bone-dim);
+    background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent);
+  }
+  .carousel-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:44px;height:44px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(12,13,15,0.65);
+    color:var(--bone);
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .15s;
+    z-index:2;
+  }
+  .carousel-btn:hover, .carousel-btn:focus-visible{
+    background:rgba(131,202,240,0.85);
+    color:var(--ink);
+    outline:none;
+  }
+  .carousel-prev{left:14px;}
+  .carousel-next{right:14px;}
+  .carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:18px;
+  }
+  .carousel-dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--gray);
+    border:none;
+    cursor:pointer;
+    padding:0;
+    transition:background .15s, transform .15s;
+  }
+  .carousel-dot.active{
+    background:var(--ice);
+    transform:scale(1.3);
+  }
+  @media (max-width:600px){
+    .carousel-slide{aspect-ratio:4/3;}
+    .carousel-btn{width:36px;height:36px;font-size:15px;}
+  }
+
+  /* ---------- CLINIC / SCHEDULE ---------- */
+  .clinic{
+    background:var(--charcoal);
+  }
+  .clinic-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:50px;
+    margin-top:40px;
+    align-items:start;
+  }
+  @media (max-width:800px){
+    .clinic-grid{grid-template-columns:1fr;}
+    .how-grid{grid-template-columns:1fr;}
+  }
+  .clinic-card{
+    background:rgba(12,13,15,0.55);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:32px;
+  }
+  .price-badge{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:linear-gradient(135deg, rgba(131,202,240,0.14), rgba(131,202,240,0.03));
+    border:1px solid rgba(131,202,240,0.35);
+    border-radius:8px;
+    padding:18px 22px;
+    margin-bottom:28px;
+  }
+  .price-badge-item{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .price-badge-num{
+    font-family:'Anton',sans-serif;
+    font-size:26px;
+    color:var(--ice);
+    line-height:1;
+  }
+  .price-badge-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--bone-dim);
+    font-weight:600;
+  }
+  .price-badge-div{
+    width:1px;
+    align-self:stretch;
+    background:var(--line);
+  }
+  @media (max-width:360px){
+    .price-badge{gap:14px;padding:16px;}
+    .price-badge-num{font-size:22px;}
+  }
+  .clinic-row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .clinic-row:last-child{border-bottom:none;}
+  .clinic-row .label{
+    color:var(--bone-dim);
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:0.06em;
+    font-weight:600;
+  }
+  .clinic-row .val{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    text-align:right;
+    font-size:14px;
+  }
+  @media (max-width:480px){
+    .clinic-card{padding:24px 20px;}
+  }
+  .map-frame{
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    height:100%;
+    min-height:280px;
+  }
+  .map-frame iframe{width:100%;height:100%;min-height:280px;border:0;display:block;}
+
+  .event-card{
+    margin-top:32px;
+    border:1.5px solid var(--ice);
+    border-radius:10px;
+    padding:32px;
+    background:linear-gradient(135deg, rgba(131,202,240,0.10), rgba(131,202,240,0.02));
+  }
+  .event-card-tag{
+    font-size:12px;
+    color:var(--ice);
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+  }
+  .event-card-body{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .event-card-info h3{
+    font-size:28px;
+    margin-bottom:10px;
+  }
+  .event-card-info p{
+    font-size:15px;
+    line-height:1.55;
+    color:var(--bone-dim);
+    max-width:480px;
+  }
+  .event-card-stats{
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .event-card-stats .fact-num{font-size:26px;}
+  @media (max-width:700px){
+    .event-card{padding:24px 20px;}
+    .event-card-body{flex-direction:column;align-items:flex-start;}
+    .event-card-stats{gap:24px;}
+  }
+
+  /* ---------- CTA BAND / CONTACT ---------- */
+  .band{
+    background:var(--ice);
+    padding:80px 24px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:start;
+    text-align:left;
+  }
+  @media (max-width:800px){
+    .contact-grid{grid-template-columns:1fr;gap:40px;}
+  }
+  .contact-copy h2{
+    font-size:clamp(30px,5vw,46px);
+    color:var(--ink);
+  }
+  .contact-copy p{
+    margin-top:14px;
+    color:rgba(12,13,15,0.75);
+    font-size:16px;
+    line-height:1.55;
+    max-width:440px;
+  }
+  .band .hero-actions{justify-content:flex-start;margin-top:28px;}
+  .band .cta-btn{background:var(--ink);color:var(--bone);}
+  .band .cta-ghost{border-color:var(--ink);color:var(--ink);background:transparent;}
+  .band .cta-ghost:hover{background:var(--ink);color:var(--bone);}
+
+  .contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(12,13,15,0.18);
+    border-radius:10px;
+    padding:28px;
+  }
+  .contact-form label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:12px;
+  }
+  .contact-form label:first-of-type{margin-top:0;}
+  .contact-form input[type="text"],
+  .contact-form input[type="email"],
+  .contact-form textarea{
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    background:#fff;
+    border:1.5px solid rgba(12,13,15,0.22);
+    border-radius:5px;
+    padding:11px 13px;
+    resize:vertical;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus{
+    outline:none;
+    border-color:var(--ink);
+  }
+  .contact-form button{
+    margin-top:20px;
+    border:none;
+    cursor:pointer;
+  }
+  .contact-form button:disabled{opacity:0.6;cursor:default;}
+  .cf-status{
+    font-size:13px;
+    font-weight:600;
+    min-height:18px;
+  }
+  .cf-status-ok{color:#1c3d2e;}
+  .cf-status-err{color:#7a2418;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:50px 24px 34px;
+    border-top:1px solid var(--line);
+  }
+  .foot-grid{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .foot-note{
+    font-size:13px;
+    color:var(--bone-dim);
+    margin-top:6px;
+  }
+  .foot-links{
+    display:flex;
+    gap:22px;
+    font-size:14px;
+  }
+  .foot-links a{opacity:0.85;}
+  .foot-links a:hover{opacity:1;color:var(--ice);}
+  .copyright{
+    margin-top:36px;
+    font-size:12px;
+    color:var(--bone-dim);
+    opacity:0.6;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      animation:fadeUp .7s ease both;
+    }
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/rolling_raptors_logo.png" alt="Rolling Raptors logo"></div>
+      <div class="brand-name">ROLLING <span>Raptors</span></div>
+    </div>
+    <div class="navlinks" id="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#clinic">Clinics</a>
+      <a href="#join">Join us</a>
+    </div>
+    <div class="nav-right">
+      <a class="cta-btn" href="#join" style="padding:10px 18px;font-size:12px;">Come play</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navlinks = document.getElementById('navlinks');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navlinks.classList.toggle('open');
+    menuBtn.classList.toggle('open', isOpen);
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navlinks.classList.remove('open');
+    menuBtn.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+<section class="hero">
+  <div class="tracks" aria-hidden="true">
+    <svg viewBox="0 0 1100 300" preserveAspectRatio="none">
+      <polyline points="-20,280 90,150 180,220 300,60 420,190 520,110 650,230 760,80 880,200 980,130 1120,260" stroke="#83caf0" stroke-width="2" fill="none" opacity="0.28"/>
+      <polyline points="-20,300 130,190 260,250 400,120 540,230 660,160 800,260 920,140 1120,290" stroke="#8a8d90" stroke-width="2" fill="none" opacity="0.35"/>
+    </svg>
+  </div>
+  <img class="hero-logo" src="assets/rolling_raptors_logo.png" alt="Rolling Raptors logo — raptor head over a Wasatch mountain skyline">
+  <div class="hero-inner reveal">
+    <div class="eyebrow mono">UTAH &middot; PICK-UP WHEELCHAIR LACROSSE</div>
+    <h1>Come as you<br>are. <span class="accent">We've</span><br>got the rest.</h1>
+    <p class="hero-sub">A small, welcoming group of Utah wheelchair lacrosse players — no experience or special gear needed. Come see what we're building. Your first clinic is free.</p>
+    <div class="hero-actions">
+      <a class="cta-btn" href="#clinic">See the next clinic</a>
+      <a class="cta-btn cta-ghost" href="#join">Ask a question</a>
+    </div>
+    <div class="hero-facts">
+      <div>
+        <div class="fact-num">Free</div>
+        <div class="fact-label">Your first clinic</div>
+      </div>
+      <div>
+        <div class="fact-num">$5</div>
+        <div class="fact-label">Drop-in after that</div>
+      </div>
+      <div>
+        <div class="fact-num">21</div>
+        <div class="fact-label">Saturdays this season</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-tag">New to this?</div>
+    <h2 class="section-title">Here's what<br>to expect</h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <span class="mono">01</span>
+        <h3>No wheelchair? No problem</h3>
+        <p>If you use a wheelchair day-to-day, you're already equipped — no sport chair required. Curious to try one anyway? We keep a few on hand. Sticks, balls, and protective gear are provided either way.</p>
+      </div>
+      <div class="how-card">
+        <span class="mono">02</span>
+        <h3>Everyone's a beginner</h3>
+        <p>This is a pick-up clinic, not a tryout. We teach the game from scratch every session, so it doesn't matter if this is your first Saturday or your fifteenth.</p>
+      </div>
+      <div class="how-card">
+        <span class="mono">03</span>
+        <h3>Bring your people</h3>
+        <p>Friends, family, and caregivers are welcome on the court. Wheelchair lacrosse is built to be played together, not watched from the sideline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-tag" style="color:var(--ice);">On the court</div>
+    <h2 class="section-title">This is what<br>Saturday looks like</h2>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carouselTrack"></div>
+      <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous photo">&#10094;</button>
+      <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next photo">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<script>
+  // To add a new photo: drop the file into the assets folder, then add one
+  // line here with its filename and a short description. That's it —
+  // nothing else on the page needs to change.
+  const galleryPhotos = [
+    { src: 'assets/photo-collision.jpg', alt: 'Two Rolling Raptors players in sport wheelchairs colliding mid-play, going for the ball' },
+    { src: 'assets/photo-action-chair.jpg', alt: 'Player in a sport wheelchair carrying the ball down the court during a clinic' },
+    { src: 'assets/photo-huddle.jpg', alt: 'Players in wheelchairs battling for the ball in a tight scrum' },
+    { src: 'assets/photo-group.jpg', alt: 'Group of Rolling Raptors players in wheelchairs holding up their lacrosse sticks together on the court' }
+  ];
+
+  const track = document.getElementById('carouselTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+  let current = 0;
+
+  galleryPhotos.forEach((photo, i) => {
+    const slide = document.createElement('figure');
+    slide.className = 'carousel-slide';
+    const img = document.createElement('img');
+    img.src = photo.src;
+    img.alt = photo.alt;
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    slide.appendChild(img);
+    track.appendChild(slide);
+
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+    dot.addEventListener('click', () => { goTo(i); stopAutoplay(); startAutoplay(); });
+    dotsWrap.appendChild(dot);
+  });
+
+  const dots = dotsWrap.querySelectorAll('.carousel-dot');
+
+  function goTo(index) {
+    current = (index + galleryPhotos.length) % galleryPhotos.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); stopAutoplay(); startAutoplay(); });
+  document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); stopAutoplay(); startAutoplay(); });
+
+  // basic touch swipe support
+  let touchStartX = 0;
+  const carouselEl = document.getElementById('carousel');
+  carouselEl.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  carouselEl.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  // Auto-advance every 5s, paused while the visitor is interacting,
+  // and skipped entirely if they've asked their device for reduced motion.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoplayTimer = null;
+
+  function startAutoplay() {
+    if (prefersReducedMotion || autoplayTimer) return;
+    autoplayTimer = setInterval(() => goTo(current + 1), 5000);
+  }
+  function stopAutoplay() {
+    clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+
+  carouselEl.addEventListener('mouseenter', stopAutoplay);
+  carouselEl.addEventListener('mouseleave', startAutoplay);
+  carouselEl.addEventListener('touchstart', stopAutoplay, { passive: true });
+  carouselEl.addEventListener('touchend', () => setTimeout(startAutoplay, 4000), { passive: true });
+  carouselEl.addEventListener('focusin', stopAutoplay);
+  carouselEl.addEventListener('focusout', startAutoplay);
+
+  startAutoplay();
+</script>
+
+<section class="clinic" id="clinic">
+  <div class="wrap">
+    <div class="section-tag" style="color:var(--ice);">2026 Season</div>
+    <h2 class="section-title">Saturday clinics,<br>March – August</h2>
+    <div class="clinic-grid">
+      <div class="clinic-card">
+        <div class="price-badge">
+          <div class="price-badge-item">
+            <span class="price-badge-num">Free</span>
+            <span class="price-badge-label">First visit</span>
+          </div>
+          <div class="price-badge-div"></div>
+          <div class="price-badge-item">
+            <span class="price-badge-num">$5</span>
+            <span class="price-badge-label">Every drop-in after</span>
+          </div>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Day</span>
+          <span class="val">SATURDAYS</span>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Dates</span>
+          <span class="val">MAR 28 – AUG 15</span>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Time</span>
+          <span class="val">10:00 – 12:00</span>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Location</span>
+          <span class="val">COPPERVIEW REC CENTER</span>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Address</span>
+          <span class="val">8446 HARRISON ST, MIDVALE</span>
+        </div>
+        <div class="clinic-row">
+          <span class="label">Cost</span>
+          <span class="val">$5 · FREE 1ST VISIT</span>
+        </div>
+        <div style="margin-top:24px;">
+          <a class="cta-btn" href="https://copperview.activityreg.com/selectactivity_t2.wcs?leaguesid=111277" style="width:100%;text-align:center;display:block;">Register for a clinic</a>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe loading="lazy" src="https://www.google.com/maps?q=8446+Harrison+St,+Midvale,+UT+84047&output=embed" title="Map to CopperView Rec Center"></iframe>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-tag mono">SPECIAL EVENT · SEASON FINALE</div>
+      <div class="event-card-body">
+        <div class="event-card-info">
+          <h3>End of Season Bash</h3>
+          <p>We're closing out the season with a game for everyone — players, family, friends, first-timers, longtime regulars. No experience needed, no cost, no registration. Just come play or come cheer.</p>
+        </div>
+        <div class="event-card-stats">
+          <div>
+            <div class="fact-num">AUG 15</div>
+            <div class="fact-label">Saturday</div>
+          </div>
+          <div>
+            <div class="fact-num">Free</div>
+            <div class="fact-label">Everyone welcome</div>
+          </div>
+          <div>
+            <div class="fact-num">10–12</div>
+            <div class="fact-label">Same time, same place</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="join">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <h2>Your first clinic<br>is on us.</h2>
+        <p>Come try it once for free. After that, drop-ins are $5 — enough to keep the gear and the good times rolling. Got questions about accessibility, transportation, or what to bring? Send us a message, or reach out directly.</p>
+        <div class="hero-actions">
+          <a class="cta-btn cta-ghost" href="mailto:utah.rollingraptors@gmail.com" target="_blank" rel="noopener">Email us</a>
+          <a class="cta-btn cta-ghost" href="https://www.instagram.com/utahrollingraptors/" target="_blank" rel="noopener">Follow on Instagram</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <input type="hidden" name="access_key" value="b0277a8b-f11e-4e4f-a267-715fde2f04d4">
+        <input type="hidden" name="subject" value="New message from Rolling Raptors website">
+        <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" placeholder="you@email.com" required>
+
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="4" placeholder="Questions, accessibility needs, first-timer nerves — all welcome" required></textarea>
+
+        <button type="submit" class="cta-btn" id="cf-submit">Send message</button>
+        <div class="cf-status" id="cf-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const cfStatus = document.getElementById('cf-status');
+  const cfSubmit = document.getElementById('cf-submit');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    cfSubmit.disabled = true;
+    cfSubmit.textContent = 'Sending…';
+    cfStatus.textContent = '';
+    cfStatus.className = 'cf-status';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+      });
+      const result = await res.json();
+      if (result.success) {
+        cfStatus.textContent = "Thanks — we'll get back to you soon.";
+        cfStatus.classList.add('cf-status-ok');
+        contactForm.reset();
+      } else {
+        throw new Error(result.message || 'Something went wrong');
+      }
+    } catch (err) {
+      cfStatus.textContent = "Couldn't send that — try again, or email us directly.";
+      cfStatus.classList.add('cf-status-err');
+    } finally {
+      cfSubmit.disabled = false;
+      cfSubmit.textContent = 'Send message';
+    }
+  });
+</script>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-name">ROLLING <span style="color:var(--ice);">RAPTORS</span></div>
+        <div class="foot-note">A small, welcoming wheelchair lacrosse community in Utah.</div>
+      </div>
+      <div class="foot-links">
+        <a href="#how">How it works</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#clinic">Clinics</a>
+        <a href="https://www.instagram.com/utahrollingraptors/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:utah.rollingraptors@gmail.com" target="_blank" rel="noopener">Contact</a>
+      </div>
+    </div>
+    <div class="copyright mono">© 2026 UTAH ROLLING RAPTORS — BUILT FOR THE COURT, NOT THE SIDELINE</div>
+  </div>
+</footer>
+
+</body>
+</html>
