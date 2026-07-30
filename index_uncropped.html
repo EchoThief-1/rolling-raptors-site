@@ -352,22 +352,6 @@
     object-fit:cover;
     display:block;
   }
-  .carousel-slide .slide-bg{
-    position:absolute;
-    inset:0;
-    background-size:cover;
-    background-position:center;
-    filter:blur(22px) brightness(0.55);
-    transform:scale(1.15);
-  }
-  .carousel-slide .slide-fg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    z-index:1;
-  }
   .carousel-slide figcaption{
     position:absolute;
     left:0;right:0;bottom:0;
@@ -807,20 +791,11 @@
   galleryPhotos.forEach((photo, i) => {
     const slide = document.createElement('figure');
     slide.className = 'carousel-slide';
-
-    const bg = document.createElement('div');
-    bg.className = 'slide-bg';
-    bg.style.backgroundImage = `url("${photo.src}")`;
-    bg.setAttribute('aria-hidden', 'true');
-    slide.appendChild(bg);
-
     const img = document.createElement('img');
-    img.className = 'slide-fg';
     img.src = photo.src;
     img.alt = photo.alt;
     img.loading = i === 0 ? 'eager' : 'lazy';
     slide.appendChild(img);
-
     track.appendChild(slide);
 
     const dot = document.createElement('button');
